@@ -5,13 +5,14 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:react": "parcel serve client/index.html --open --dist-dir client/build",
-   "start": "node server/index.js",
-   "build": "parcel build client/index.html --dist-dir client/build"
+    "start": "node server/index.js",
+    "build": "parcel build client/index.html --dist-dir client/build"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@parcel/transformer-image": "^2.0.0-rc.0",
     "parcel": "^2.0.0-rc.0"
   },
   "dependencies": {

@@ -17,18 +17,20 @@ export default class Form extends Component {
   }
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          Kanalens namn:
+      <div>
+        <h3>Search for a youtube channel:</h3>
+        <form onSubmit={this.handleSubmit} id='searchthis'>
           <input
+            className={'namanyay-search-box'}
             type='text'
             name='name'
             value={this.state.value}
             onChange={this.handleChange}
           />
-        </label>
-        <input type='submit' value='Submit' />
-      </form>
+
+          <input className='namanyay-search-btn' type='submit' value='Search' />
+        </form>
+      </div>
     );
   }
 }
