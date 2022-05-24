@@ -21,9 +21,6 @@ export default function weekday(nr) {
         case 7:
             return 'Sunday';
             break;
-        case 8:
-            return '';
-            break;
         default:
             break;
     }

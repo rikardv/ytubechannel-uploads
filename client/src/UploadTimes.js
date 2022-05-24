@@ -5,20 +5,60 @@ import axios from 'axios';
 import weekday from './functions/weekdays';
 export default class UploadTimes extends Component {
   state = {
-    dates: [],
+    heatTimes: [],
     title: '',
     loading: false,
-    daysFreq: '',
-    hoursFreq: '',
+    fullTimes: [],
+  };
+
+  renderTitles = () => {
+    return (
+      <p>
+        {this.state.title} usually post:{' '}
+        <b> {weekday(this.state.heatTimes[0].days)} </b> around{' '}
+        {this.state.heatTimes[0].hours}
+      </p>
+    );
+  };
+
+  renderGraph = () => {
+    return (
+      <div class='graph'>
+        <p>Scatter plot</p>
+        <UploadChart data={this.state.heatTimes} />
+      </div>
+    );
+  };
+
+  renderTable = () => {
+    return (
+      <div class='table'>
+        <p>Latest uploads</p>
+        <table style={{ width: '100%' }}>
+          <tr>
+            <th>Day of week</th>
+            <th>Time of day</th>
+          </tr>
+          {this.state.fullTimes.map((element) => (
+            <tr>
+              <td>{element.days_full}</td>
+              <td>{element.hours_full}</td>
+            </tr>
+          ))}
+        </table>
+      </div>
+    );
   };
 
   handleSubmit = (event) => {
     this.setState({ loading: true, title: event });
     axios.get(`/channel/uploads?title=${event}`).then((res) => {
-      const dates = res.data.data;
+      const heatTimes = res.data.data;
+      const fullTimes = res.data.other;
       this.setState({
-        dates,
+        heatTimes,
         loading: false,
+        fullTimes,
       });
     });
   };
@@ -38,27 +78,20 @@ export default class UploadTimes extends Component {
         </div>
       );
     }
-    return (
-      <div
-        style={{
-          width: '100%',
-          height: '100%',
-        }}
-      >
-        <Form handleSubmit={this.handleSubmit} />
-        {this.state.dates.length > 0 && (
-          <div style={{ width: '100%', height: '100%' }}>
-            <h2> {this.state.title} </h2>
-            <h3 style={{ fontWeight: 300 }}>
-              usually post: <b> {weekday(this.state.dates[0].days)} </b> at{' '}
-              {this.state.dates[0].hours}
-            </h3>
-            <div style={{ justifyContent: 'center' }}>
-              <UploadChart data={this.state.dates} />
-            </div>
+
+    if (this.state.fullTimes.length > 0 && this.state.heatTimes.length > 0) {
+      return (
+        <div style={{ width: '100%' }}>
+          <Form handleSubmit={this.handleSubmit} />
+          {this.renderTitles()}
+          <div class='graphContainer'>
+            {this.renderGraph()}
+            {this.renderTable()}
           </div>
-        )}
-      </div>
-    );
+        </div>
+      );
+    }
+
+    return <Form handleSubmit={this.handleSubmit} />;
   }
 }

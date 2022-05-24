@@ -16,7 +16,7 @@ import {
 export default class chart extends Component {
   render() {
     return (
-      <ResponsiveContainer width='100%' height={500}>
+      <ResponsiveContainer width='100%' height={400}>
         <ScatterChart margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
           <CartesianGrid />
           <XAxis
@@ -27,7 +27,7 @@ export default class chart extends Component {
             domain={[1, 7]}
             tickCount={7}
             allowDataOverflow
-            padding={{ left: 75, right: 75 }}
+            padding={{ right: 50, left: 50 }}
           />
           <YAxis
             type='number'
@@ -44,12 +44,12 @@ export default class chart extends Component {
             stroke
           />
           <Tooltip cursor={{ strokeDasharray: '3 3' }} />
-          <Legend />
+
           <Scatter data={this.props.data}>
             {this.props.data.map((entry, index) => (
               <Cell
                 key={`cell-${index}`}
-                fill={entry.quantity > 10 ? '#61DBFB' : '#959595'}
+                fill={entry.quantity >= 2 ? '#61DBFB' : '#959595'}
               />
             ))}
           </Scatter>
