@@ -9,14 +9,19 @@ export default class UploadTimes extends Component {
     title: '',
     loading: false,
     fullTimes: [],
+    daysSinceUpload: 0,
   };
 
   renderTitles = () => {
     return (
       <p>
         {this.state.title} usually post:{' '}
-        <b> {weekday(this.state.heatTimes[0].days)} </b> around{' '}
-        {this.state.heatTimes[0].hours}
+        <b>
+          {weekday(this.state.heatTimes[0].days)} around{' '}
+          {this.state.heatTimes[0].hours}
+        </b>
+        <br />
+        days since last upload: <b>{this.state.daysSinceUpload}</b>
       </p>
     );
   };
@@ -55,10 +60,12 @@ export default class UploadTimes extends Component {
     axios.get(`/channel/uploads?title=${event}`).then((res) => {
       const heatTimes = res.data.data;
       const fullTimes = res.data.other;
+      const daysSinceUpload = res.data.days_since_upload;
       this.setState({
         heatTimes,
         loading: false,
         fullTimes,
+        daysSinceUpload,
       });
     });
   };

@@ -1,6 +1,7 @@
 # dev dependencies
 node_modules
 .parcel-cache
+.env
 
 # builds
 client/build
