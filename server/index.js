@@ -2,14 +2,16 @@ const express = require('express');
 const cors = require('cors');
 const moment = require('moment');
 const { google } = require('googleapis');
+var morgan = require('morgan');
 const path = require('path');
 require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 3001;
-
+var subdomain = require('express-subdomain');
 app.use(cors());
 
-app.use(express.static(path.resolve(__dirname, '../client/build')));
+app.use(morgan('combined'));
+app.use(subdomain('ytuploads',express.static(path.resolve(__dirname, '../client/build'))));
 
 app.listen(port, () => {
   console.log('api is running');
