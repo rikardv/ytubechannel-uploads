@@ -21,7 +21,7 @@ export default class UploadTimes extends Component {
       <div className='infoContainer'>
         <button onClick={() => this.resetPage()} className='return-search-btn'>
           <i class='fa fa-home' />
-          <i>go back</i>
+          <i>Go back</i>
         </button>
         <img
           crossOrigin='anonymous'
@@ -35,7 +35,7 @@ export default class UploadTimes extends Component {
             {this.state.heatTimes[0].hours}
           </b>
           <br />
-          days since last upload: <b>{this.state.daysSinceUpload}</b>
+          Days since last upload: <b>{this.state.daysSinceUpload}</b>
         </p>
       </div>
     );
@@ -56,13 +56,11 @@ export default class UploadTimes extends Component {
         <p>Latest uploads</p>
         <table style={{ width: '100%' }}>
           <tr>
-            <th>day</th>
-            <th>time</th>
-            <th>no upload streak</th>
+            <th>Time</th>
+            <th>No upload streak</th>
           </tr>
           {this.state.fullTimes.map((element) => (
             <tr>
-              <td>{element.days_full}</td>
               <td>{element.hours_full}</td>
               <td style={{ color: element.diff < 10 ? '#0099ff' : 'red' }}>
                 {element.diff}
@@ -111,7 +109,7 @@ export default class UploadTimes extends Component {
     if (this.state.loading) {
       return (
         <div class='middle'>
-          <h3>Loading....</h3>
+          <h3>Finding uploading times for {this.state.title}....</h3>
           <div class='bar bar1'></div>
           <div class='bar bar2'></div>
           <div class='bar bar3'></div>
@@ -128,10 +126,7 @@ export default class UploadTimes extends Component {
       return (
         <div style={{ width: '100%' }}>
           {this.renderTitles()}
-          <div class='graphContainer'>
-            {this.renderGraph()}
-            {this.renderTable()}
-          </div>
+          <div class='graphContainer'>{this.renderGraph()}</div>
         </div>
       );
     }

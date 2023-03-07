@@ -17,9 +17,18 @@ export default class Form extends Component {
   }
   render() {
     return (
-      <div>
-        <h4>when do they upload?</h4>
-        <h3>search for a youtube channel:</h3>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '90vh',
+        }}
+      >
+        <div>
+          <h3>Search for a youtube channel</h3>
+        </div>
         <form onSubmit={this.handleSubmit} id='searchthis'>
           <input
             placeholder='PewDiePie'
